@@ -5,19 +5,34 @@
     "creator": [
         {
             "class": "Person",
+            "identifier": "https://orcid.org/0000-0002-3602-7884",
+            "name": "Mina Hojat Ansari"
+        },
+        {
+            "class": "Person",
             "identifier": "https://orcid.org/0000-0003-2982-388X",
             "name": "Paul Zierep"
         },
         {
             "class": "Person",
+            "identifier": "https://orcid.org/0009-0004-0382-2023",
+            "name": "Santino Faack"
+        },
+        {
+            "class": "Person",
             "identifier": "https://orcid.org/0000-0001-9852-1987",
             "name": "Bérénice Batut"
+        },
+        {
+            "class": "Organization",
+            "name": "FAIRyMAGs consortium",
+            "url": "https://github.com/usegalaxy-eu/FAIRyMAGs"
         }
     ],
     "format-version": "0.1",
     "license": "MIT",
     "name": "Host or Contamination Removal on Long-Reads",
-    "readme": "# Host or Contamination removal on long-reads\n\nThe extraction of microbiome DNA or RNA is usually contaminated by host and human DNA or RNA (but also other contaminant). It is an important to get rid of all host/contamination sequences and to only retain microbiome sequences, both in order to speed up further steps and to avoid host/contamination sequences compromising the analysis.\n\nThis workflow takes Nanopore fastq(.gz) files and executes the following steps:\n1. Mapping of the reads against a reference genome of the host or contaminant (e.g. human) using **Minimap 2**,\n2. Filtering of the generated BAM using **BAMtools** and **Samtools** to keep only the reads that do not align,\n3. Generation of mapping statistics using **QualiMap**,\n2. Aggregation of the mapping statistics using **MultiQC**\n\n## Input Datasets\n\n- A list of datasets corresponding to reads in `fastqsanger` or `fastqsanger.gz` format.\n- Reference genome\n- Profile for mapping\n\n## Output Datasets\n\n- A list of datasets corresponding to unmapped reads in `fastqsanger` or `fastqsanger.gz`.\n- A list of reports of QualiMap for each sample that could be used as inputs for extra MultiQC\n- MultiQC report of the mapping statistics in HTML",
+    "readme": "# Host or Contamination removal on long-reads\n\nThe extraction of microbiome DNA or RNA is usually contaminated by host and human DNA or RNA (but also other contaminant). It is an important to get rid of all host/contamination sequences and to only retain microbiome sequences, both in order to speed up further steps and to avoid host/contamination sequences compromising the analysis.\n\nThis workflow can be used on its own or integrated into other workflows. For example, it is part of a **suite of workflows for end-to-end metagenome-assembled genome (MAG) generation** (check [FAIRyMAGs repository](https://github.com/usegalaxy-eu/FAIRyMAGs) for the complete workflow suite and its capabilities).\n\nThis workflow takes Nanopore fastq(.gz) files and executes the following steps:\n1. Mapping of the reads against a reference genome of the host or contaminant (e.g. human) using **Minimap 2**\n2. Filtering of the generated BAM using **BAMtools** and **Samtools** to keep only the reads that do not align\n3. Generation of mapping statistics using **QualiMap**\n4. Aggregation of the mapping statistics using **MultiQC**\n\n## Input Datasets\n\n- A list of datasets corresponding to reads in `fastqsanger` or `fastqsanger.gz` format.\n- Reference genome\n- Profile for mapping\n\n## Output Datasets\n\n- A list of datasets corresponding to unmapped reads in `fastqsanger` or `fastqsanger.gz`.\n- A list of reports of QualiMap for each sample that could be used as inputs for extra MultiQC\n- MultiQC report of the mapping statistics in HTML\n\n## When to use this workflow\n\nUse this workflow for **long-read sequencing data** (e.g., Nanopore, PacBio). For short-read Illumina data, see the [Host or Contamination removal on short-reads](../host-contamination-removal-short-reads/) workflow.\n\n## Funding\n\nThis workflow was developed as part of the [**FAIRyMAGs** project](https://elixir-europe.org/how-we-work/scientific-programme/science/bfsp/fairymags), funded as a commissioned service of the [**Biodiversity, Food Security and Pathogens (BFSP) ELIXIR Scientific Programme 2024–2028**](https://elixir-europe.org/how-we-work/scientific-programme/science/bfsp).\n\nThe project was also supported by the **European Galaxy Server**, funded by the German Federal Ministry of Education and Research (BMBF; 031 A538A de.NBI-RBC) and the **Ministry of Science, Research and the Arts Baden-Württemberg (MWK)** within the framework of **LIBIS/de.NBI Freiburg**.",
     "report": {
         "markdown": "\n# Workflow Execution Report\n\n## Workflow Inputs\n```galaxy\ninvocation_inputs()\n```\n\n## Workflow Outputs\n```galaxy\ninvocation_outputs()\n```\n\n## Workflow\n```galaxy\nworkflow_display()\n```\n"
     },
@@ -105,7 +120,7 @@
         },
         "3": {
             "annotation": "Map the reads against a reference genome and output the ones not mapping the reference genome",
-            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2/2.28+galaxy2",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2/2.31+galaxy1",
             "errors": null,
             "id": 3,
             "input_connections": {
@@ -155,16 +170,16 @@
                     "output_name": "alignment_output"
                 }
             },
-            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2/2.28+galaxy2",
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2/2.31+galaxy1",
             "tool_shed_repository": {
-                "changeset_revision": "539de907fd99",
+                "changeset_revision": "7a6382582d76",
                 "name": "minimap2",
                 "owner": "iuc",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"alignment_options\": {\"splicing\": {\"splice_mode\": \"preset\", \"__current_case__\": 0}, \"A\": null, \"B\": null, \"O\": null, \"O2\": null, \"E\": null, \"E2\": null, \"z\": null, \"z2\": null, \"s\": null, \"no_end_flt\": true}, \"fastq_input\": {\"fastq_input_selector\": \"single\", \"__current_case__\": 0, \"fastq_input1\": {\"__class__\": \"ConnectedValue\"}, \"analysis_type_selector\": {\"__class__\": \"ConnectedValue\"}}, \"indexing_options\": {\"H\": false, \"k\": null, \"w\": null, \"I\": null}, \"io_options\": {\"output_format\": \"BAM\", \"Q\": false, \"L\": false, \"K\": null, \"cs\": null, \"c\": false, \"eqx\": false, \"Y\": false}, \"mapping_options\": {\"N\": null, \"F\": null, \"f\": null, \"kmer_ocurrence_interval\": {\"interval\": \"\", \"__current_case__\": 1}, \"min_occ_floor\": null, \"q_occ_frac\": \"0.01\", \"g\": null, \"r\": null, \"n\": null, \"m\": null, \"max_chain_skip\": null, \"max_chain_iter\": null, \"X\": false, \"p\": null, \"mask_len\": null}, \"reference_source\": {\"reference_source_selector\": \"cached\", \"__current_case__\": 0, \"ref_file\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"alignment_options\": {\"splicing\": {\"splice_mode\": \"preset\", \"__current_case__\": 0}, \"A\": null, \"B\": null, \"b\": null, \"O\": null, \"O2\": null, \"E\": null, \"E2\": null, \"z\": null, \"z2\": null, \"s\": null, \"end_bonus\": null, \"score_N\": null, \"no_end_flt\": true, \"jump_min_match\": null, \"end_seed_pen\": null, \"cap_sw_mem\": null, \"cap_kalloc\": null}, \"fastq_input\": {\"fastq_input_selector\": \"single\", \"__current_case__\": 0, \"fastq_input1\": {\"__class__\": \"ConnectedValue\"}, \"analysis_type_selector\": {\"__class__\": \"ConnectedValue\"}}, \"indexing_options\": {\"H\": false, \"k\": null, \"w\": null, \"I\": null}, \"io_options\": {\"output_format\": \"BAM\", \"Q\": false, \"L\": false, \"K\": null, \"cs\": null, \"c\": false, \"eqx\": false, \"Y\": false, \"copy_comments\": false, \"ds_tag\": false, \"secondary_seq\": false, \"two_io_threads\": false, \"seed\": null}, \"mapping_options\": {\"N\": null, \"f\": null, \"kmer_ocurrence_interval\": {\"interval\": \"\", \"__current_case__\": 1}, \"min_occ_floor\": null, \"q_occ_frac\": \"0.01\", \"g\": null, \"r\": null, \"n\": null, \"m\": null, \"max_chain_skip\": null, \"max_chain_iter\": null, \"X\": false, \"p\": null, \"mask_len\": null, \"rmq_inner\": null, \"no_hash_name\": false}, \"reference_source\": {\"reference_source_selector\": \"cached\", \"__current_case__\": 0, \"ref_file\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
             "tool_uuid": null,
-            "tool_version": "2.28+galaxy2",
+            "tool_version": "2.31+galaxy1",
             "type": "tool",
             "uuid": "b43a7f78-e9d5-49ab-98c9-070514036269",
             "when": null,
@@ -233,7 +248,7 @@
         },
         "5": {
             "annotation": "Split BAM into mapped and unmapped",
-            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/bamtools_split_mapped/bamtools_split_mapped/2.5.2+galaxy2",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/bamtools_split_mapped/bamtools_split_mapped/2.5.3+galaxy0",
             "errors": null,
             "id": 5,
             "input_connections": {
@@ -271,16 +286,16 @@
                     "output_name": "unmapped"
                 }
             },
-            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/bamtools_split_mapped/bamtools_split_mapped/2.5.2+galaxy2",
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/bamtools_split_mapped/bamtools_split_mapped/2.5.3+galaxy0",
             "tool_shed_repository": {
-                "changeset_revision": "fa7b5520ae53",
+                "changeset_revision": "90af4f8f59af",
                 "name": "bamtools_split_mapped",
                 "owner": "iuc",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
             "tool_state": "{\"input_bam\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
             "tool_uuid": null,
-            "tool_version": "2.5.2+galaxy2",
+            "tool_version": "2.5.3+galaxy0",
             "type": "tool",
             "uuid": "56141fe0-3b82-4005-8035-9369f30511d5",
             "when": null,
@@ -328,7 +343,7 @@
         },
         "7": {
             "annotation": "Extractions of FastQ from the unmapped reads",
-            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.22+galaxy1",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.22+galaxy2",
             "errors": null,
             "id": 7,
             "input_connections": {
@@ -359,16 +374,16 @@
                     "output_name": "output"
                 }
             },
-            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.22+galaxy1",
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.22+galaxy2",
             "tool_shed_repository": {
-                "changeset_revision": "491037bfc0d2",
+                "changeset_revision": "4bde991b8037",
                 "name": "samtools_fastx",
                 "owner": "iuc",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
             "tool_state": "{\"copy_arb_tags\": null, \"copy_tags\": false, \"exclusive_filter\": [\"256\", \"2048\"], \"exclusive_filter_all\": null, \"idxout_cond\": {\"idxout_select\": \"no\", \"__current_case__\": 0}, \"inclusive_filter\": null, \"input\": {\"__class__\": \"ConnectedValue\"}, \"output_fmt_cond\": {\"output_fmt_select\": \"fastqsanger\", \"__current_case__\": 0, \"default_quality\": null, \"output_quality\": false, \"ilumina_casava\": false}, \"outputs\": \"other\", \"read_numbering\": \"\", \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
             "tool_uuid": null,
-            "tool_version": "1.22+galaxy1",
+            "tool_version": "1.22+galaxy2",
             "type": "tool",
             "uuid": "2e9642e7-4404-4d9b-9530-912c62a7a665",
             "when": null,
@@ -382,7 +397,7 @@
         },
         "8": {
             "annotation": "Aggregation of the mapping statistics for all samples",
-            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/multiqc/multiqc/1.33+galaxy0",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/multiqc/multiqc/1.35+galaxy1",
             "errors": null,
             "id": 8,
             "input_connections": {
@@ -427,16 +442,16 @@
                     "output_name": "html_report"
                 }
             },
-            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/multiqc/multiqc/1.33+galaxy0",
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/multiqc/multiqc/1.35+galaxy1",
             "tool_shed_repository": {
-                "changeset_revision": "26ee5e11ecbe",
+                "changeset_revision": "fac2260bc88a",
                 "name": "multiqc",
                 "owner": "iuc",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"comment\": \"\", \"export\": false, \"flat\": false, \"image_content_input\": {\"__class__\": \"RuntimeValue\"}, \"png_plots\": false, \"results\": [{\"__index__\": 0, \"software_cond\": {\"software\": \"qualimap\", \"__current_case__\": 20, \"input\": {\"__class__\": \"ConnectedValue\"}}}], \"title\": \"Host/Contamination Removal\", \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"comment\": \"\", \"export\": false, \"flat\": false, \"image_content_input\": {\"__class__\": \"RuntimeValue\"}, \"png_plots\": false, \"results\": [{\"__index__\": 0, \"software_cond\": {\"software\": \"qualimap\", \"__current_case__\": 21, \"input\": {\"__class__\": \"ConnectedValue\"}}}], \"title\": \"Host/Contamination Removal\", \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
             "tool_uuid": null,
-            "tool_version": "1.33+galaxy0",
+            "tool_version": "1.35+galaxy1",
             "type": "tool",
             "uuid": "9bfa844d-9fee-4589-8568-80070c6c6479",
             "when": null,
@@ -454,7 +469,7 @@
         "contamination",
         "long_reads"
     ],
-    "uuid": "dd1fa1e1-99f1-4094-bb87-d797ae61c74e",
+    "uuid": "77356bff-79be-48bb-a22d-51250c1f49c5",
     "version": 1,
-    "release": "0.3"
+    "release": "0.6"
 }

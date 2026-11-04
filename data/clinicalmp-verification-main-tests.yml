@@ -26,28 +26,28 @@
       collection_type: list
       elements:
       - class: File
-        filetype: auto
+        filetype: mgf
         hashes:
         - hash_function: SHA-1
           hash_value: 74b0db7ef696b05fa115190ffd0c854b8c420aca
         identifier: PTRC_Skubitz_Plex2_F15_9Aug19_Rage_Rep-19-06-08.mgf
         location: https://zenodo.org/records/14181725/files/PTRC_Skubitz_Plex2_F15_9Aug19_Rage_Rep-19-06-08.mgf
       - class: File
-        filetype: auto
+        filetype: mgf
         hashes:
         - hash_function: SHA-1
           hash_value: 6320f5feb043422ddff8285f0496e4d9a016287c
         identifier: PTRC_Skubitz_Plex2_F13_9Aug19_Rage_Rep-19-06-08.mgf
         location: https://zenodo.org/records/14181725/files/PTRC_Skubitz_Plex2_F13_9Aug19_Rage_Rep-19-06-08.mgf
       - class: File
-        filetype: auto
+        filetype: mgf
         hashes:
         - hash_function: SHA-1
           hash_value: 63d72e72e02c7c10fbb3248bfeed1d77c2ffc897
         identifier: PTRC_Skubitz_Plex2_F11_9Aug19_Rage_Rep-19-06-08.mgf
         location: https://zenodo.org/records/14181725/files/PTRC_Skubitz_Plex2_F11_9Aug19_Rage_Rep-19-06-08.mgf
       - class: File
-        filetype: auto
+        filetype: mgf
         hashes:
         - hash_function: SHA-1
           hash_value: 7d8d9cfaf29b048929ff2f1f14b0ea474cae02c0
@@ -63,12 +63,30 @@
         has_text:
           text: '>sp'
     Peptide and Protein from Peptide Reports:
-      path: test-data/Peptide_and_Protein_from_Peptide_Reports.tabular
+      asserts:
+      - has_line:
+          line: "mpep\tprot"
+      - has_line:
+          line: "IVSAASCTTNSLAPMANALDK\ttr|C7XGC7|C7XGC7_9LACO"
+      - has_line:
+          line: "HYAHMDAPGHADYIK\ttr|A0A135ZFV0|A0A135ZFV0_9LACO"
+      - has_n_lines:
+          delta: 25
+          n: 185
     Quantitation Database for MaxQuant:
       asserts:
         has_text:
           text: '>tr'
     Uniprot ID from verified Peptides:
-      path: test-data/Uniprot-ID_from_verified_Peptides.tabular
+      asserts:
+      - has_line:
+          line: C7XGC7
+      - has_line:
+          line: A0A4Q0LRZ3
+      - has_line:
+          line: A0A6B0BNK5
+      - has_n_lines:
+          delta: 10
+          n: 76
     cRAP:
       path: test-data/cRAP.fasta
